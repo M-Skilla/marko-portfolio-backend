@@ -2,6 +2,7 @@ package com.example.markoportfolio.dto;
 
 import com.example.markoportfolio.model.ProjectStatus;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,4 +33,8 @@ public class ProjectRequest {
     private ProjectStatus status;
 
     private LocalDateTime completedAt;
+
+    private List<String> skills;
+
+    private List<ProjectMediaRequest> media;
 }

@@ -1,5 +1,6 @@
 package com.example.markoportfolio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,6 +38,7 @@ public class SkillTechnology {
     @Column(nullable = false)
     private String category;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "skills")
     private Set<Project> projects = new HashSet<>();
 }
