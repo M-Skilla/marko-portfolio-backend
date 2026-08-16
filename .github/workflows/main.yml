@@ -59,13 +59,20 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
           envs:  REGISTRY,IMAGE_NAME
           script: |
+            cd ~/app
+            
+            # Authenticate with GHCR
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-            docker pull $REGISTRY/$IMAGE_NAME:latest
-            docker stop app || true
-            docker rm app || true
-            docker run -d \
-              --name app \
-              --restart always \
-              -p 8080:8080 \
-              $REGISTRY/$IMAGE_NAME:latest
+            
+            # Export environment variables for docker-compose.yml
+            export REGISTRY=$REGISTRY
+            export IMAGE_NAME=$IMAGE_NAME
+            
+            # Pull latest app image
+            docker compose pull app
+            
+            # Restart containers with updated image
+            docker compose up -d
+            
+            # Clean up old unused images
             docker image prune -f
