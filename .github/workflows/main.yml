@@ -72,6 +72,9 @@ jobs:
           script: |
             cd ~/app
             
+            # Write .env file from GitHub Secret
+            echo "$APP_ENV" > .env
+            
             # Authenticate with GHCR
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
             
