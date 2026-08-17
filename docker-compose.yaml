@@ -36,6 +36,9 @@ services:
     image: caddy:2-alpine
     container_name: caddy
     restart: unless-stopped
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
     ports:
       - "80:80"    # HTTP (Automatic redirect to HTTPS)
       - "443:443"  # HTTPS
