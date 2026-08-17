@@ -6,8 +6,8 @@ services:
       POSTGRES_DB: portfoliodb
       POSTGRES_USER: marko
       POSTGRES_PASSWORD: 2323
-    ports:
-      - "5432:5432"
+    # Removed host port mapping ("5432:5432") so the DB isn't publicly exposed to internet scanners/bots.
+    # It remains accessible to 'app' via the internal Docker network.
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -21,8 +21,9 @@ services:
     container_name: app
     env_file:
       - .env
-    ports:
-      - "8080:8080"
+    # Host port mapping removed ("8080:8080") so external traffic MUST go through Caddy over HTTPS.
+    expose:
+      - "8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/portfoliodb
       SPRING_DATASOURCE_USERNAME: marko
@@ -31,5 +32,21 @@ services:
       postgres:
         condition: service_healthy
 
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"    # HTTP (Automatic redirect to HTTPS)
+      - "443:443"  # HTTPS
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data     # Stores Let's Encrypt certificates
+      - caddy_config:/config # Stores Caddy state configuration
+    depends_on:
+      - app
+
 volumes:
   postgres_data:
+  caddy_data:
+  caddy_config:
