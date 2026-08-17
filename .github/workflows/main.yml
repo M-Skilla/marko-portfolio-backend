@@ -72,8 +72,16 @@ jobs:
           script: |
             cd ~/app
             
-            # Write .env file from GitHub Secret
-            echo "$APP_ENV" > .env
+            # Write .env securely using heredoc and GitHub Secret directly
+            cat << 'EOF' > .env
+            ${{ secrets.APP_ENV }}
+            EOF
+
+            # Verify .env is not empty
+            if [ ! -s .env ]; then
+              echo "Error: .env file is empty!"
+              exit 1
+            fi
             
             # Authenticate with GHCR
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
