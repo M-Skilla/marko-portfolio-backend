@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/media")
+@RequestMapping("/media")
 public class ProjectMediaController {
 
     private final ProjectMediaService projectMediaService;

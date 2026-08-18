@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/site")
+@RequestMapping("/site")
 public class SiteSettingsController {
 
     private final SiteSettingsService siteSettingsService;
