@@ -27,6 +27,10 @@ public class SiteSettingsRequest {
 
     private String linkedInUrl;
 
+    private String phone;
+
+    private String email;
+
     private String metaTitle;
 
     private String metaDescription;

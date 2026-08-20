@@ -43,6 +43,8 @@ public class SiteSettingsService {
         existing.setGithubUrl(settings.getGithubUrl());
         existing.setTwitterUrl(settings.getTwitterUrl());
         existing.setLinkedInUrl(settings.getLinkedInUrl());
+        existing.setPhone(settings.getPhone());
+        existing.setEmail(settings.getEmail());
         existing.setMetaTitle(settings.getMetaTitle());
         existing.setMetaDescription(settings.getMetaDescription());
 

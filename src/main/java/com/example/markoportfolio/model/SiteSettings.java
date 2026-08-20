@@ -46,6 +46,12 @@ public class SiteSettings {
     @Column(name = "linkedin_url")
     private String linkedInUrl;
 
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "meta_title")
     private String metaTitle;
 
